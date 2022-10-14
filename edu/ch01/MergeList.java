@@ -2,10 +2,10 @@ package ch01;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Collections;
-import java.util.Iterator;
-public class Merge_assignment {
+import java.util.List;
+
+public class MergeList {
 	public static String[] removeElement(String[] arr, String item) {
 		List<String> list = new ArrayList<>(Arrays.asList(arr));
 		list.remove(item);
@@ -28,25 +28,61 @@ public class Merge_assignment {
 		return Arrays.asList(arr);
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static List<String> mergeList(List<String> list1, List<String> list2, List<String> list3) {
+		int i = 0;
+	    int j = 0;
+	    int k = 0;    
+	    int n1 = list1.size();
+	    int n2 = list2.size();
+	    
+	    while(i < n1 && j < n2) {
+    		if((list1.get(i)).compareTo(list2.get(j)) < 0) {
+    			list3.add(list1.get(i));
+    			i++;
+    		} else {
+				list3.add(list2.get(j));
+    			j++;
+    		}
+	    }
+	    
+	    while(i < n1 && j == n2) {
+	    	list3.add(list1.get(i));
+			i++;
+	    }
+	    while(i == n1 && j < n2) {
+	    	list3.add(list2.get(j));
+			j++;
+	    }
+	    
+	    String[] arr3 = new String[0];
+	    arr3 = list3.toArray(arr3);
+	    list3 = removeDuplicate(arr3);
+	    
+	    return list3;
+	}
+	
+	public static void main(String[] args) {
 		List<String> list1 = new ArrayList<String>();
 			list1.add("서울");
 			list1.add("북경");
 			list1.add("상해");
 			list1.add("서울");
 			list1.add("도쿄");
+			list1.add("도쿄");
 			list1.add("뉴욕");
 
 		List<String> list2 = new ArrayList<String>();
 			list2.add("런던");
+			list2.add("런던");
 			list2.add("로마");
 			list2.add("방콕");
+			list2.add("북경");
 			list2.add("북경");
 			list2.add("도쿄");
 			list2.add("서울");
 			list2.add(1, "LA");
-			
-		//
+		
+		// list sort한 후 출력
 		System.out.println("collection.sort()::");
 	    Collections.sort(list1);
 	    System.out.println("list1::");
@@ -56,10 +92,9 @@ public class Merge_assignment {
 	    System.out.println("list2::");
 	    Collections.sort(list2);
 	    for ( String city: list2)
-	    	System.out.print(city+ " ");
-		
-		
-		 // list to array
+	    	System.out.print(city+ " ");	
+	    
+	    // list to array
 	    String[] arr1 = new String[0];
 	    arr1 = list1.toArray(arr1);
 	    String[] arr2 = new String[0];
@@ -70,7 +105,7 @@ public class Merge_assignment {
 	    list2 = removeDuplicate(arr2);
 	    
 	    // 중복제거 후 출력
-	    System.out.print("\n\nremoveDuplicate::");
+	    System.out.print("\n\nremoveDuplicate");
 	    System.out.println("\nlist1::");
 	    for(String city: list1) {
 	    	System.out.print(city+ " ");
@@ -79,22 +114,18 @@ public class Merge_assignment {
 	    for(String city: list2) {
 	    	System.out.print(city+ " ");
 	    }
-
-	    // merge
-	    Iterator<String> iter1 = list1.iterator();
-		Iterator<String> iter2 = list2.iterator();
-		ArrayList<String> list3 = new ArrayList<String>();
-		
-		System.out.println();
-	    System.out.println("\nmerge:: ");
 	    
-	    
-	    while(iter1.hasNext()) {
-	    		
-		}
-	    for ( String city: list3)
+//	     merge
+	    List<String> list3 = new ArrayList<String>();
+	    list3 = mergeList(list1, list2, list3);
+	    System.out.print("\n\nmergeList");
+	    System.out.println("\nlist3::");
+	    for(String city: list3) {
 	    	System.out.print(city+ " ");
+	    }
 	    
-	}	
+
+	}
+	
 }
 
