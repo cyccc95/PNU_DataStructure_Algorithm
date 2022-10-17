@@ -36,6 +36,7 @@ public class Merge_assignment {
 			list1.add("서울");
 			list1.add("도쿄");
 			list1.add("뉴욕");
+			list1.add("한라산");
 
 		List<String> list2 = new ArrayList<String>();
 			list2.add("런던");
@@ -44,6 +45,10 @@ public class Merge_assignment {
 			list2.add("북경");
 			list2.add("도쿄");
 			list2.add("서울");
+			list2.add("홍도");
+			list2.add("홍도1");
+			list2.add("홍도2");
+			
 			list2.add(1, "LA");
 			
 		//
@@ -88,10 +93,30 @@ public class Merge_assignment {
 		System.out.println();
 	    System.out.println("\nmerge:: ");
 	    
-	    
-	    while(iter1.hasNext()) {
-	    		
-		}
+	    String l1 = iter1.hasNext() ? iter1.next() : null;
+	    String l2 = iter2.hasNext() ? iter2.next() : null;
+	    while(l1 != null && l2 != null) {
+	    	if (l1.compareTo(l2) < 0) {
+	    		list3.add(l1);
+	    		l1 = iter1.hasNext() ? iter1.next() : null;
+	    	} else if (l1.compareTo(l2) > 0){
+	    		list3.add(l2);
+	    		l2 = iter2.hasNext() ? iter2.next() : null;
+	    	} else {
+	    		list3.add(l1);
+	    		l1 = iter1.hasNext() ? iter1.next() : null;
+	    		l2 = iter2.hasNext() ? iter2.next() : null;
+	    	}
+	    }
+	    while (l1 != null) {
+	    	list3.add(l1);
+	    	l1 = iter1.hasNext() ? iter1.next() : null;
+	    }
+	    while (l2 != null) {
+	    	list3.add(l2);
+	    	l2 = iter2.hasNext() ? iter2.next() : null;
+	    }
+
 	    for ( String city: list3)
 	    	System.out.print(city+ " ");
 	    
