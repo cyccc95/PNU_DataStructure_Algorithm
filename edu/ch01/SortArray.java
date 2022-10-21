@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 //string 정렬, binary search 구현
 //1단계: string, 2단계: string 객체,  Person 객체들의 list\
-public class Algorithm_assignment {
+public class SortArray {
     public static String[] removeElement1(String[] arr, String item) {
         List<String> list = new ArrayList<>(Arrays.asList(arr));
         list.remove(item);
