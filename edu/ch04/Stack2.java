@@ -1,3 +1,5 @@
+package ch04;
+
 class Point {
     private int ix;
     private int iy;
@@ -78,7 +80,7 @@ public class Stack2 {
     // --- 스택에서 x를 찾아 인덱스(벌견하지 못하면 –1)를 반환 ---//
     public int indexOf(Point x) {
         for (int i = ptr - 1; i >= 0; i--) // 정상 쪽에서 선형검색
-            if (stk[i].equals(x))
+            if (stk[i].getX() == x.getX() && stk[i].getY() == x.getY())
                 return i; // 검색 성공
         return -1; // 검색 실패
     }
@@ -109,7 +111,7 @@ public class Stack2 {
             System.out.println("스택이 비어있습니다.");
         else {
             for (int i = 0; i < ptr; i++)
-                System.out.print(stk[i] + " ");
+                System.out.printf("(%d, %d) ",stk[i].getX(),stk[i].getY());
             System.out.println();
         }
     }
