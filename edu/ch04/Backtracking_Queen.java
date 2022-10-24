@@ -1,11 +1,12 @@
+package ch04;
+
 import java.util.Scanner;
 
 public class Backtracking_Queen {
     public static void SolveQueen(int[][] data) {
         Stack2 st = new Stack2(data.length);
         int answer = 0;
-        int row = 0;
-        int col = 0;
+        int row, col;
         int count = 0;
         while(count < data.length){ // 첫번째 row의 모든 col에 다 배치해볼 때까지
             row = 0;
@@ -41,7 +42,10 @@ public class Backtracking_Queen {
                 }
                 if (row == data.length) {
                     print(data);
-                    System.out.println("--------");
+                    for(int i = 0; i < data.length;i++) {
+                    	System.out.print("--");
+                    }
+                    System.out.println();
                     answer++;
                     clearData(data, row - 1);
 
@@ -96,7 +100,11 @@ public class Backtracking_Queen {
     public static void print(int[][] data){
         for (int i = 0; i <data.length; i++) {
             for (int j = 0; j < data[0].length; j++) {
-                System.out.print(" " + data[i][j]);
+            	if(data[i][j] == 0) {
+            		System.out.print(" X");
+            	} else {
+            		System.out.print(" Q");
+            	}
             }
             System.out.println();
         }
