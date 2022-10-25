@@ -1,6 +1,3 @@
-package ch04;
-
-
 class Position {
     private int x;
     private int y;
