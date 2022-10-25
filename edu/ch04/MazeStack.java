@@ -1,17 +1,15 @@
 package ch04;
 
-import ch04.Stack2.EmptyIntStackException;
-import ch04.Stack2.OverflowIntStackException;
 
-class Offset {
+class Position {
     private int x;
     private int y;
     private int dir;
     
-    public Offset(int x, int y, int dir) {
-        x = x;
-        y = y;
-        dir = dir;
+    public Position(int x, int y, int dir) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
     }
 
     public int getX() {
@@ -24,18 +22,18 @@ class Offset {
     	return dir;
     }
     public void setX(int x) {
-        x = x;
+        this.x = x;
     }
     public void setY(int y) {
-        y = y;
+        this.y = y;
     }
     public void setDir(int dir) {
-    	dir = dir;
+    	this.dir = dir;
     }
 }
 
 public class MazeStack {
-    private Offset[] stk; // 스택용 배열
+    private Position[] stk; // 스택용 배열
     private int capacity; // 스택의 크기
     private int ptr; // 스택 포인터
 
@@ -56,28 +54,28 @@ public class MazeStack {
         ptr = 0;
         capacity = maxlen;
         try {
-            stk = new Offset[capacity]; // 스택 본체용 배열을 생성
+            stk = new Position[capacity]; // 스택 본체용 배열을 생성
         } catch (OutOfMemoryError e) { // 생성할 수 없음
             capacity = 0;
         }
     }
 
     // --- 스택에 x를 푸시 ---//
-    public Offset push(Offset o) throws OverflowIntStackException {
+    public Position push(Position p) throws OverflowIntStackException {
         if (ptr >= capacity) // 스택이 가득 참
             throw new OverflowIntStackException();
-        return stk[ptr++] = o;
+        return stk[ptr++] = p;
     }
 
     // --- 스택에서 데이터를 팝(정상에 있는 데이터를 꺼냄) ---//
-    public Offset pop() throws EmptyIntStackException {
+    public Position pop() throws EmptyIntStackException {
         if (ptr <= 0) // 스택이 빔
             throw new EmptyIntStackException();
         return stk[--ptr];
     }
 
     // --- 스택에서 데이터를 피크(peek, 정상에 있는 데이터를 들여다봄) ---//
-    public Offset peek() throws EmptyIntStackException {
+    public Position peek() throws EmptyIntStackException {
         if (ptr <= 0) // 스택이 빔
             throw new EmptyIntStackException();
         return stk[ptr - 1];
@@ -109,7 +107,7 @@ public class MazeStack {
             System.out.println("스택이 비어있습니다.");
         else {
             for (int i = 0; i < ptr; i++)
-                System.out.printf("(%d, %d, %d) ",stk[i].getX(),stk[i].getY(),stk[i].getDir());
+                System.out.printf("(%d, %d) ",stk[i].getX(),stk[i].getY());
             System.out.println();
         }
     }
