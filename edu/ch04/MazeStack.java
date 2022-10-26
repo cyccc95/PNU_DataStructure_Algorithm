@@ -1,3 +1,5 @@
+package ch04;
+
 class Position {
     private int x;
     private int y;
@@ -103,9 +105,15 @@ public class MazeStack {
         if (ptr <= 0)
             System.out.println("스택이 비어있습니다.");
         else {
-            for (int i = 0; i < ptr; i++)
-                System.out.printf("(%d, %d) ",stk[i].getX(),stk[i].getY());
-            System.out.println();
+            for (int i = 0; i < ptr; i++) {
+                System.out.printf("(%d, %d)",stk[i].getX(),stk[i].getY());
+                if(i < ptr - 1) {
+                	System.out.print(" -> ");
+                }
+                if((i + 1) % 5 == 0) {
+                	System.out.println();
+                }
+            }
         }
     }
 }
