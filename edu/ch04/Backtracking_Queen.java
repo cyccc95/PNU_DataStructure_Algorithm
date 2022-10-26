@@ -44,16 +44,11 @@ public class Backtracking_Queen {
         		}
         	}
         }
-        System.out.println(answer);
+        System.out.println("경우의 수 : " + answer);
     }
     public static boolean check(int[][] data, int row, int col){
         int i,j;
-//        같은 row에 이미 퀸이 있는지 체크
-//        for(i = 0; i < data.length; i++){
-//            if(data[row][i] == 1){
-//                return false;
-//            }
-//        }
+
         // 같은 col에 이미 퀸이 있는지 체크
         for(i = 0; i < data.length; i++){
         	if(col >= data.length) {
@@ -76,14 +71,6 @@ public class Backtracking_Queen {
             }
         }
         return true;
-    }
-
-    public static void clearData(int[][] data, int row){
-        for(int i = row; i < data.length; i++){
-            for(int j = 0; j < data.length; j++){
-                data[i][j] = 0;
-            }
-        }
     }
 
     public static void print(int[][] data){
