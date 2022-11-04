@@ -90,7 +90,7 @@ class MaxHeap implements MaxPQ {
         	System.out.print(heap[i].getKey() + " ");
         }
     }
-    void heapSort() {	// deleteMax를 모두 수행한 뒤에 오름차순 정렬된 배열을 출력
+    void heapSort() {	// deleteMax를 수행한 뒤에 오름차순 정렬되는 배열을 출력
     	for(int i = 1; i <= maxSize; i++) {
     		System.out.print(heap[i].getKey() + " ");
     	}
