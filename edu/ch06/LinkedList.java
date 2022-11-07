@@ -9,9 +9,9 @@ public class LinkedList<E> {
 		private Node<E> next; // 뒤쪽 포인터(다음 노드에 대한 참조)
 
 		// --- 생성자(constructor) ---//
-		Node(E data, Node<E> next) {
+		Node(E data) {
 			this.data = data;
-			this.next = next;
+			this.next = null;
 		}
 	}
 
@@ -19,7 +19,7 @@ public class LinkedList<E> {
 
 	// --- 생성자(constructor) ---//
 	public LinkedList() {
-		this.head = null;
+		head = null;
 	}
 
 	// --- 노드 검색 ---//
@@ -34,33 +34,60 @@ public class LinkedList<E> {
 		}
 		return null; // 검색 실패
 	}
-	// --- 꼬리 노드 삽입 ---//
-	public void add(E obj) {
-		Node<E>	ptr = head;
+	
+	// --- 노드 삽입 ---//
+	public void add(E obj, Comparator<? super E> no, Comparator<? super E> name) {		
+		Node<E> ptr = head;
+		Node<E> input = new Node<E>(obj);
+		// head가 비었으면 head에 add
 		if(head == null) {
-			head = new Node<E>(obj,ptr);
+			head = new Node<E>(obj);
+			return;
+		}
+		// input을 head랑 비교
+		if(no.compare(input.data, head.data) < 0) {
+			head = input;
+			input.next = ptr;
+			return;
+		}
+		// head 이후 요소랑 비교
+		while(ptr.next != null) {
+			if(no.compare(input.data, ptr.next.data) < 0) {
+				Node<E> temp = ptr.next;
+				ptr.next = input;
+				input.next = temp;
+				return;
+			} else if (no.compare(input.data, ptr.next.data) == 0 &&
+					name.compare(input.data, ptr.next.data) < 0) {
+				Node<E> temp = ptr.next;
+				ptr.next = input;
+				input.next = temp;
+				return;
+			}
+			ptr = ptr.next;
+		}
+		ptr.next = input;
+		
+		
+	}
+
+	// --- 노드 삭제 ---//
+	public void delete(E obj, Comparator<? super E> no, Comparator<? super E> name) {		//전달 객체를 삭제
+		Node<E> ptr = head;
+		if(no.compare(ptr.data, obj) == 0 &&
+				name.compare(ptr.data, obj) == 0) {
+			head = head.next;
 			return;
 		}
 		while(ptr.next != null) {
+			if(no.compare(ptr.next.data, obj) == 0 &&
+					name.compare(ptr.next.data, obj) == 0) {
+				ptr.next = ptr.next.next;
+				return;
+			}
 			ptr = ptr.next;
 		}
-		ptr.next = new Node<E>(obj,null);
-	}
-
-	// --- 노드p 삭제 ---//
-	public void delete(E obj) {//전달 객체를 삭제
-		if(head != null) {
-			if(obj == head.data) {		// p가 머리 노드면 머리 노드 삭제
-				head = head.next;
-			} else {
-				Node<E> ptr = head;
-				while(ptr.next.data != obj) {
-					ptr = ptr.next;
-					if(ptr == null) return; // p가 리스트에 없음
-				}
-				ptr = ptr.next;
-			}
-		}
+		System.out.println("그 데이터는 없습니다.");
 		
 	}
 
@@ -69,8 +96,9 @@ public class LinkedList<E> {
 		Node<E> ptr = head;
 
 		while (ptr != null) {
-			System.out.println(ptr.data);
+			System.out.print(ptr.data + " ");
 			ptr = ptr.next;
 		}
+		System.out.println();
 	}
 }

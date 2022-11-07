@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class LinkedListTester {
 	static Scanner sc = new Scanner(System.in);
 
-	static class Data {
+	public static class Data {
 		static final int NO = 1; // 번호를 읽어 들일까요?
 		static final int NAME = 2; // 이름을 읽어 들일까요?
 
@@ -49,6 +49,7 @@ public class LinkedListTester {
 				return d1.name.compareTo(d2.name);
 			}
 		}
+		
 	}
 
 	// --- 메뉴 열거형 ---//
@@ -97,6 +98,7 @@ public class LinkedListTester {
 		Menu menu; // 메뉴
 		Data data; // 추가용 데이터 참조
 		Data ptr; // 검색용 데이터 참조
+		Data ptr2;
 		Data temp = new Data(); // 읽어 들일 데이터
 
 		LinkedList<Data> list = new LinkedList<Data>(); // 리스트를 생성
@@ -109,13 +111,13 @@ public class LinkedListTester {
 			case ADD: // 삽입
 				data = new Data();
 				data.scanData("삽입", Data.NO | Data.NAME);
-				list.add(data);
+				list.add(data, Data.NO_ORDER, Data.NAME_ORDER);
 				break;
 
 			case DELETE: // 삭제
 				data = new Data();
 				data.scanData("삭제", Data.NO | Data.NAME);
-				list.delete(data);
+				list.delete(data, Data.NO_ORDER, Data.NAME_ORDER);
 				break;
 
 			case SEARCH_NO: // 회원 번호 검색
