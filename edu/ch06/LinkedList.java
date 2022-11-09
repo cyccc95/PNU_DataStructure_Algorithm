@@ -49,7 +49,14 @@ public class LinkedList<E> {
 			head = input;
 			input.next = ptr;
 			return;
+		} else if (no.compare(input.data, head.data) == 0 &&
+				name.compare(input.data, head.data) < 0) {
+			Node<E> temp = head;
+			head = input;
+			input.next = temp;
+			return;
 		}
+		
 		// head 이후 요소랑 비교
 		while(ptr.next != null) {
 			if(no.compare(input.data, ptr.next.data) < 0) {
