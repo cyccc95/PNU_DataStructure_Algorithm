@@ -1,3 +1,5 @@
+package ch07;
+
 import java.util.Scanner;
 
 class TreeNode {
@@ -62,7 +64,7 @@ class Tree {
             System.out.print(CurrentNode.data + " ");
         }
     }
-
+    
     void insert(int x) { // binary search tree를 만드는 입력
         TreeNode newNode = new TreeNode(x);
         if (root == null) {
@@ -96,9 +98,75 @@ class Tree {
     }
 
     void delete(int x) { // binary search tree에서 x가 있으면 삭제하는 구현
-
+    	TreeNode parent = root;
+    	TreeNode current = root;
+    	boolean isLeftChild = false;
+    	// x를 찾는 과정
+    	while(current.data != x) {
+    		parent = current;
+    		if (current.data > x) {
+				isLeftChild = true;
+				current = current.leftChild;
+			} else {
+				isLeftChild = false;
+				current = current.rightChild;
+			}
+    		if (current == null) {
+				System.out.printf("%d는 tree에 없습니다.\n",x);
+				return;
+    		}
+    	}
+    	// 1. 자식 노드가 없는 경우
+    	if(current.leftChild == null && current.rightChild == null) {
+    		if (current == root) {
+				root = null;
+			}
+    		// 왼쪽 가지이면
+    		if (isLeftChild) {
+				parent.leftChild = null;
+    		// 오른쪽 가지이면	
+			} else {
+				parent.rightChild = null;
+			}
+    	}
+    	// 2. 자식이 하나인 경우
+    	else if(current.rightChild == null) { // 왼쪽 자식을 갖는 경우
+    		if (current == root) {
+				root = current.leftChild;
+			}
+    		// 왼쪽 가지이면
+    		if (isLeftChild) {
+				parent.leftChild = current.leftChild;
+    		// 오른쪽 가지이면	
+			} else {
+				parent.rightChild = current.leftChild;
+			}
+    	} else if(current.leftChild == null) { // 오른쪽 자식을 갖는 경우
+    		if (current == root) {
+				root = current.rightChild;
+			}
+    		// 왼쪽 가지이면
+    		if (isLeftChild) {
+				parent.leftChild = current.rightChild;
+    		// 오른쪽 가지이면	
+			} else {
+				parent.rightChild = current.rightChild;
+			}
+    	}
+    	// 3. 두 개의 자식을 갖는 경우
+    	else if(current.leftChild != null && current.rightChild != null) {
+    		// 오른쪽 서브트리의 최소값을 찾음
+    		TreeNode successor = inOrderSuccessor(current);
+    		if(current == root) {
+    			root = successor;
+    		} else if(isLeftChild) {
+    			parent.leftChild = successor;
+    		} else {
+    			parent.rightChild = successor;
+    		}
+    		successor.leftChild = current.leftChild;
+    	}
     }
-
 }
 
 public class BinarySearchTree {
@@ -124,6 +192,8 @@ public class BinarySearchTree {
 
                     break;
                 case 2: // Delete
+                	System.out.print("The number to delete = ");
+                	t.delete(sc.nextInt());
                     break;
                 case 3:
                     t.preOrder();
