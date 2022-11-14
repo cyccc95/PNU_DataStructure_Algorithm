@@ -145,7 +145,7 @@ public class ChainHashTest {
 	public static void main(String[] args) {
 		ChainHash hash = new ChainHash(13);
 		int select = 0;
-		while (select != 6) {
+		while (select != 5) {
 			System.out.print("SimpleChainHash:: Select 1:Add, 2:Delete, 3:Search, 4:PrintDump, 5:Quit => ");
 			select = sc.nextInt();
 			switch (select) {
@@ -178,9 +178,6 @@ public class ChainHashTest {
 					System.out.println("Re-Enter");
 					break;
 				}
-			if (select == 5) {
-				break;
-			}
 		}
 	}
 }
